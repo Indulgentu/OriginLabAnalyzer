@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>OriginLabAnalyzer Help</title>
+
+<style>
+* {
+	@import url('./fonts/Roboto-Regular.ttf');
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: #e3e4e6;
+	overflow-x: hidden;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	background: linear-gradient(90deg, #4b6cb7 0%, #182848 100%);
+	-webkit-box-shadow: 0px -3.5px 10px 2px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px -3.5px 10px 2px rgba(0,0,0,0.75);
+	box-shadow: 0px -3.5px 10px 2px rgba(0,0,0,0.75);
+	min-height: 70px;
+	padding: 5px;
+	color: white;
+}
+
+.menu a {
+	color: white;
+	text-decoration: none;
+}
+
+.menu ul {
+	list-style: none;
+}
+
+.menu li {
+	display: inline-block;
+	padding-left: 10px;
+}
+
+.menu .logo {
+	height: 50px;
+	margin-right: 25px;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+}
+
+.content {
+	display: flex;
+	margin: 20px;
+	background-color: white;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.side_menu {
+	margin: 0 40px 0 0;
+
+}
+
+.side_menu ul {
+	list-style: none;
+	line-height: 23px;
+}
+
+.side_menu a {
+	text-decoration: none;
+	color: rgb(165, 165, 165);
+}
+
+.side_menu a:hover {
+	color: rgb(0, 0, 0);
+}
+
+.side_menu a {
+	text-decoration: none;
+	color: rgb(105, 105, 105);
+}
+
+.side_menu_header {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.vl {
+	min-height: 100%;
+	border-left: 1px solid rgb(211, 211, 211);
+	margin: -20px 0 -20px 0;
+}
+
+.doc_container {
+	padding-left: 20px;
+}
+
+.doc_container .title {
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.doc_container .subtitle {
+	font-weight: lighter;
+	font-size: 18px;
+	padding-top: 5px;
+}
+
+.doc_content {
+	line-height: 18px;
+	padding: 0px 0px 10px 0px;
+}
+
+.article {
+	margin-top: 20px;
+}
+
+.article_img {
+	display: block;
+	margin: 0 auto;
+	padding: 30px 0px 30px 0px;
+}
+
+</style>
+</head>
+
+<body>
+<div class="menu">
+	<a href="help.html"><img class="logo" src="./img/logo.png"></a>
+	<ul>
+		<li><a href="./help.html">Overview</a></li>
+		<li><a href="./help_import.html">Importing</a></li> 
+		<li><a href="./help_analyze.html">Analyzing</a></li>
+	</ul>
+</div>
+
+<div class="container">
+	<div class="content">
+		<div class="side_menu">
+			<span class="side_menu_header">Importing</span>
+
+			<ul>
+				<li><a href="#about">About</a></li>
+				<li><a href="#steps">How to Import</a></li>
+			</ul>
+		</div>
+		<div class="vl"></div>
+		<div class="doc_container">
+			<div class="title">Importing</div>
+			<div class="subtitle">Importing data into OLA.</div>
+			<div class="doc_content">
+				<div id="about" class="article">
+					<div style="font-size: 20px; font-weight: bold; padding-bottom: 13px;">About</div>
+					<p>OLA has to parse raw osciloscope data in order to be able to insert it into OriginLab. To do so, you have to provide it with a CSV file.</p>
+				</div>
+
+				<div id="steps" class="article">
+					<div style="font-size: 20px; font-weight: bold; padding-bottom: 13px;">How to import</div>
+					<p>To import files for parsing, you have to follow these steps:</p>
+					<p>1. Go to <b>File</b> -> <b>Import CSV...</b> -> <b>From Folder.../From File...</b> (Folder picker automatically selects all CSV files in the chosen folder) <img class="article_img" src="./img/imp_1.png"></p>
+					<p>2. In the import window, select the file you wish to modify the import params of from the <b>"Select File"</b> dropdown. <img class="article_img" src="./img/imp_2.png"></p>
+					<p>3. Select the <b>"Output Path"</b>. This is where your parsed files will be saved.</p>
+					<p>4. You can now change the experimental values in the <b>"Import Options"</b> category. (This step is optional) <b>Don't forget to save the changes by pressing "Save" before importing/switching to another file!</b><img class="article_img" src="./img/imp_3.png"></p>
+					<p>5. At last, press <b>"Import"</b> to import the current selected file OR <b>"Import All"</b> to import all files at once. <img class="article_img" src="./img/imp_4.png"></p>
+					<p>The import wizard will now parse the CSV and automatically add the parsed files to the Files List in the analyzer. Well done!</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+
+</html>
