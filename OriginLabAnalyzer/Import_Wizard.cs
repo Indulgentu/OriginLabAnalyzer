@@ -38,6 +38,7 @@ namespace OriginLabAnalyzer
                 PathOut = PathToData + @"\";
                 // Do something with selected folder string
                 imp_button.Enabled = true;
+                imp_all_btn.Enabled = true;
             }
         }
 

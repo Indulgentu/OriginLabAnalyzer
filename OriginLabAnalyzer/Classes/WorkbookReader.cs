@@ -74,7 +74,6 @@ namespace OriginLabAnalyzer
                             case 0:
                                 Long_Names = T;
                                 Columns = Long_Names.Length;
-                                Console.WriteLine(Long_Names.Length);
                                 if(Columns <= 1)
                                 {
                                     throw new Exception("File is incorrect format.");
@@ -122,7 +121,7 @@ namespace OriginLabAnalyzer
                     Wks.Columns[i].Comments = Comments[i];
                 }
                 Wks.Activate();
-                if (Wks == null) { Console.WriteLine("Cannot create worksheet for some reason."); return; }
+                if (Wks == null) { return; }
 
                 Wks.SetData(Data, -1);
             }
@@ -139,7 +138,6 @@ namespace OriginLabAnalyzer
             {
                 if (App.GraphPages[App.Pages["Book"].Layers[i].Name] == null)
                 {
-                    Console.WriteLine(AppDomain.CurrentDomain.BaseDirectory);
                     Origin.GraphPage gp = (App.GraphPages["Graph"] != null) ? App.GraphPages["Graph"] : App.GraphPages.Add(AppDomain.CurrentDomain.BaseDirectory + @"Content\aolo.otpu");
                     if (gp != null)
                     {

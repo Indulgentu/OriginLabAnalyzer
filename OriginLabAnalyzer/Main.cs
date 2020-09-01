@@ -93,7 +93,6 @@ namespace OriginLabAnalyzer
                     {
                         c++;
                         wbr.InitWorkBook(f.SubItems[1].Text, f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")));
-                        Console.WriteLine(f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")));
                         UpdateProgress("Processing: " + f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")) + " (" + c + "/" + items.Count + ")");
                     }catch(Exception e)
                     {

@@ -287,6 +287,7 @@
             // 
             // imp_all_btn
             // 
+            this.imp_all_btn.Enabled = false;
             this.imp_all_btn.Location = new System.Drawing.Point(391, 336);
             this.imp_all_btn.Name = "imp_all_btn";
             this.imp_all_btn.Size = new System.Drawing.Size(75, 23);

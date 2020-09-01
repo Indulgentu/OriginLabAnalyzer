@@ -31,7 +31,6 @@ namespace OriginLabAnalyzer
                 isLi = fName.Contains("li");
 
                 PathOut = POut + ((isLi) ? fName.Split(new[] { "li" }, StringSplitOptions.None)[0] : fName.Split(new[] { "mZ" }, StringSplitOptions.None)[0]) + @"\" + fName + @"\";
-                Console.WriteLine(PathOut);
                 Options = Opts;
                 ReadData();
             }
@@ -92,7 +91,6 @@ namespace OriginLabAnalyzer
             {
                 if (i % BlockSize == 0)
                 {
-                    Console.WriteLine("Starting next batch from " + (i + HeaderSize) + " to " + (i + BlockSize + HeaderSize));
                     fileNo++;
                     tempPath = (isLi) ? PathOut + fName + "_" + fileNo + ".txt" : PathOut + fName + ".txt";
 
