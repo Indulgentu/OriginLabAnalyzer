@@ -117,24 +117,13 @@ namespace OriginLabAnalyzer
                     for (int k = 0; k < Temp.Length; k++)
                     {
                         String[] CurrLine = Temp[k].Split(',');
-                       // String V_Case = isLi ? Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch4")] : Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch1")];
                         double Voltage = isLi ? Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch4")]) : Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]);
-                        //String Time = (isLi || Temp[k].Split(',')[0].Trim(' ') == "") ? (HOffset + (k) * HRes).ToString("0.00000000") : Double.Parse(Temp[k].Split(',')[0]).ToString("0.0000000");
                         double Time = (isLi || CurrLine[0].Trim(' ') == "") ? (HOffset + (k) * HRes) : Helper.ParseDouble(CurrLine[0]);
-                        //String Current = GetCorrectCurrent(Double.Parse(Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch3")])).ToString();
                         double Current = GetCorrectCurrent(Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch3")]));
-                        //String Voltage = Double.Parse(V_Case, System.Globalization.NumberStyles.Float).ToString();
-                        //String WirePos = isLi ? Double.Parse(Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]).ToString() : "0";
                         double WirePos = isLi ? Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]) : 0;
-                        //String Pin = GetInputPower(Double.Parse(Current), Double.Parse(Voltage)).ToString("0.00000000");
                         double Pin = GetInputPower(Current, Voltage);
-                        //String PCol = GetPowerCol(Double.Parse(Current), Double.Parse(Voltage)).ToString();
                         double PCol = GetPowerCol(Current, Voltage);
-                        //String PExp = GetPexp(Double.Parse(PCol)).ToString("0.000000");
                         double PExp = GetPexp(PCol);
-                        /*PcolTimes[k] = Double.Parse(Time);
-                        PcolValues[k] = GetPowerCol(Double.Parse(Current), Double.Parse(Voltage));
-                        PExpValues[k] = GetPexp(GetPowerCol(Double.Parse(Current), Double.Parse(Voltage)));*/
                         PcolTimes[k] = Time;
                         PcolValues[k] = PCol;
                         PExpValues[k] = PExp;
@@ -142,8 +131,8 @@ namespace OriginLabAnalyzer
                         if (k == Temp.Length - 1)
                         {
                             double[] ExpP = GenP(PcolValues, PcolTimes, PExpValues);
-                            Temp[0] = Temp[0] + " 0 0 " + ExpP[0] + " " + ExpP[1];
-                            Temp[1] = Temp[1] + " 0 0 " + ExpP[0] + " " + ExpP[1];
+                            Temp[0] = Temp[0] + " 0 0 " + ExpP[0] + " " + ExpP[0];
+                            Temp[1] = Temp[1] + " 0 0 " + ExpP[1] + " " + ExpP[1];
                             Temp[2] = Temp[2] + " 0 0 " + ExpP[2] + " " + ExpP[3];
                         }
                         Temp[k] = Time + " " + Current + " " + Voltage + " " + WirePos + " " + Pin + " " + PCol + " " + PExp + ((k < 3) ? "" : " 0 0 0 0");
