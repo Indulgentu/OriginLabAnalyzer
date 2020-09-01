@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Classes\CSVObject.cs" />
     <Compile Include="Classes\DataParser.cs" />
+    <Compile Include="Classes\Helper.cs" />
     <Compile Include="Classes\Ranges.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -124,10 +125,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Content Include="Content\aolo.otpu">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\booky.otwu">
+    <Content Include="Content\GraphTemplate.otpu">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Content\fonts\Roboto-Regular.ttf">

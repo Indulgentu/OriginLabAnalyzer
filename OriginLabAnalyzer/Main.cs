@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -34,13 +35,23 @@ namespace OriginLabAnalyzer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Filter = "Text Files (*.TXT)|*.TXT";
+            openFileDialog1.Filter = "Text Files (*.TXT)|*.TXT|CSV Files (*.CSV)|*.CSV";
             openFileDialog1.Multiselect = true;
             openFileDialog1.Title = "Select Data";
             DialogResult dr = openFileDialog1.ShowDialog();
 
             if (dr == DialogResult.OK) 
             {
+                String[] CSVFiles = openFileDialog1.FileNames.Where(f => Path.GetExtension(f).ToUpperInvariant() == ".CSV").ToArray();
+                if(CSVFiles.Length > 0)
+                {
+                    Import_Wizard IW = new Import_Wizard();
+
+                    IW.AddToList(CSVFiles);
+
+                    IW.ShowDialog();
+                    return;
+                }
                 AddToList(openFileDialog1.FileNames);
             }
         }
@@ -61,9 +72,17 @@ namespace OriginLabAnalyzer
                 textBox1.Text = PathToData;
                 try
                 {
-                    String[] files = Directory.GetFiles(PathToData, "*.txt", SearchOption.AllDirectories);
+                    String[] ParsedFiles = Directory.GetFiles(PathToData, "*.txt", SearchOption.TopDirectoryOnly);
+                    String[] CSVFiles = Directory.GetFiles(PathToData, "*.csv", SearchOption.TopDirectoryOnly);
+                    if(CSVFiles.Length > 0)
+                    {
+                        Import_Wizard IW = new Import_Wizard();
 
-                    AddToList(files);
+                        IW.AddToList(CSVFiles);
+
+                        IW.ShowDialog();
+                    }
+                    AddToList(ParsedFiles);
                 }catch(Exception ex)
                 {
                     Console.WriteLine(ex.Message);
@@ -71,39 +90,46 @@ namespace OriginLabAnalyzer
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btn_analyze_Click(object sender, EventArgs e)
         {
             AsyncLaunchWB();
         }
 
         private async void AsyncLaunchWB()
         {
+            btn_analyze.Enabled = false;
             await Task.Run(() =>
             {
+                UpdateProgress("Started WorkBook import...");
                 WorkbookReader wbr = new WorkbookReader();
                 int c = 0;
                 ListView.ListViewItemCollection items = getListViewItems(listView1);
                 foreach (ListViewItem f in items)
                 {
-                    if (WorkbookReader.App.Pages.Count > 0 && WorkbookReader.App.Pages["Book"].Layers[f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf("."))] != null)
+                    String Path = f.SubItems[1].Text;
+                    String FileName = f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf("."));
+                    if (WorkbookReader.App.Pages.Count > 0 && WorkbookReader.App.Pages["Book"].Layers[FileName] != null)
                     {
                         continue;
                     }
                     try
                     {
                         c++;
-                        wbr.InitWorkBook(f.SubItems[1].Text, f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")));
-                        UpdateProgress("Processing: " + f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")) + " (" + c + "/" + items.Count + ")");
-                    }catch(Exception e)
+                        wbr.InitWorkBook(Path, FileName);
+                        UpdateProgress("Processing: " + FileName + " (" + c + "/" + items.Count + ")");
+                    }catch
                     {
-                        MessageBox.Show(f.SubItems[0].Text.Substring(0, f.SubItems[0].Text.LastIndexOf(".")) + " was skipped. ");
+                        MessageBox.Show(FileName + " was skipped. ");
                     }
                 }
                 wbr.GenerateGraphs();
                 WorkbookReader.App.Visible = Origin.MAINWND_VISIBLE.MAINWND_SHOW_BRING_TO_FRONT;
-                WorkbookReader.App.CanClose = true;
+         
                 UpdateProgress("Ready");
             });
+            btn_kill_origin.Enabled = true;
+            btn_origin_clear.Enabled = true;
+            btn_analyze.Enabled = true;
         }
 
         private void UpdateProgress(String t)
@@ -135,7 +161,7 @@ namespace OriginLabAnalyzer
             }
 
             listView1.View = View.Details;
-            button2.Enabled = true;
+            btn_analyze.Enabled = true;
         }
 
         public void AddToListInvoke(String[] Files)
@@ -194,7 +220,7 @@ namespace OriginLabAnalyzer
                 }
                 if(listView1.Items.Count <= 0)
                 {
-                    button2.Enabled = false;
+                    btn_analyze.Enabled = false;
                 }
             }
         }
@@ -252,7 +278,74 @@ namespace OriginLabAnalyzer
 
         private void asdToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start(@"Content\help.html");
+            System.Diagnostics.Process.Start(AppDomain.CurrentDomain.BaseDirectory + @"Content\help.html");
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (WorkbookReader.App != null)
+                {
+                    DialogResult dr = MessageBox.Show("Are you sure you want to exit Origin?", "Exit", MessageBoxButtons.OKCancel);
+                    if (dr == DialogResult.OK)
+                    {
+                        WorkbookReader.App.EndSession();
+                        WorkbookReader.App.Exit();
+                        WorkbookReader.App = null;
+                        btn_kill_origin.Enabled = false;
+                        btn_origin_clear.Enabled = false;
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void btn_origin_clear_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (WorkbookReader.App != null)
+                {
+                    DialogResult dr = MessageBox.Show("Are you sure you want to reset the current Origin instance?", "Reset", MessageBoxButtons.OKCancel);
+                    if (dr == DialogResult.OK)
+                    {
+                        WorkbookReader.App.Reset(true, true);
+                        WorkbookReader.App.NewProject();
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void OriginLabAnalyzer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (WorkbookReader.App != null)
+            {
+                DialogResult dr = MessageBox.Show("Origin is still running. If you don't stop it before closing this app, you'll have to manually close it from task manager. Kill it now?", "Exit OLA", MessageBoxButtons.YesNoCancel);
+                switch (dr)
+                {
+                    case DialogResult.Yes:
+                        WorkbookReader.App.EndSession();
+                        WorkbookReader.App.Exit();
+                        WorkbookReader.App = null;
+                        break;
+                    case DialogResult.No:
+                        break;
+                    case DialogResult.Cancel:
+                        e.Cancel = true;
+                        break;
+                    default: break;
+                }
+            }
+        }
+
     }
 }

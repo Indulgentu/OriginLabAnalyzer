@@ -1,5 +1,3 @@
-C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\aolo.otpu
-C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\booky.otwu
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\OriginLabAnalyzer.exe.config
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\OriginLabAnalyzer.exe
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\OriginLabAnalyzer.pdb
@@ -29,3 +27,4 @@ C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Conte
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\img\imp_4.png
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\help_analyze.html
 C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\help_import.html
+C:\Users\FG-EGA\source\repos\OriginLabAnalyzer\OriginLabAnalyzer\bin\Debug\Content\GraphTemplate.otpu

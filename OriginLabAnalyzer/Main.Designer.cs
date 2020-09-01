@@ -44,10 +44,12 @@
             this.c_path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.btn_analyze = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btn_origin_clear = new System.Windows.Forms.Button();
+            this.btn_kill_origin = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -167,7 +169,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(445, 341);
+            this.button1.Location = new System.Drawing.Point(15, 341);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(97, 23);
             this.button1.TabIndex = 6;
@@ -175,16 +177,16 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btn_analyze
             // 
-            this.button2.Enabled = false;
-            this.button2.Location = new System.Drawing.Point(445, 444);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(97, 23);
-            this.button2.TabIndex = 7;
-            this.button2.Text = "Analyze...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btn_analyze.Enabled = false;
+            this.btn_analyze.Location = new System.Drawing.Point(445, 341);
+            this.btn_analyze.Name = "btn_analyze";
+            this.btn_analyze.Size = new System.Drawing.Size(97, 23);
+            this.btn_analyze.TabIndex = 7;
+            this.btn_analyze.Text = "Analyze...";
+            this.btn_analyze.UseVisualStyleBackColor = true;
+            this.btn_analyze.Click += new System.EventHandler(this.btn_analyze_Click);
             // 
             // label3
             // 
@@ -211,15 +213,39 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel1.Text = "Ready";
             // 
+            // btn_origin_clear
+            // 
+            this.btn_origin_clear.Enabled = false;
+            this.btn_origin_clear.Location = new System.Drawing.Point(445, 400);
+            this.btn_origin_clear.Name = "btn_origin_clear";
+            this.btn_origin_clear.Size = new System.Drawing.Size(97, 23);
+            this.btn_origin_clear.TabIndex = 13;
+            this.btn_origin_clear.Text = "Reset ";
+            this.btn_origin_clear.UseVisualStyleBackColor = true;
+            this.btn_origin_clear.Click += new System.EventHandler(this.btn_origin_clear_Click);
+            // 
+            // btn_kill_origin
+            // 
+            this.btn_kill_origin.Enabled = false;
+            this.btn_kill_origin.Location = new System.Drawing.Point(445, 371);
+            this.btn_kill_origin.Name = "btn_kill_origin";
+            this.btn_kill_origin.Size = new System.Drawing.Size(97, 23);
+            this.btn_kill_origin.TabIndex = 14;
+            this.btn_kill_origin.Text = "Stop Origin";
+            this.btn_kill_origin.UseVisualStyleBackColor = true;
+            this.btn_kill_origin.Click += new System.EventHandler(this.button3_Click);
+            // 
             // OriginLabAnalyzer
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(554, 492);
+            this.Controls.Add(this.btn_kill_origin);
+            this.Controls.Add(this.btn_origin_clear);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_analyze);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.browse_btn);
@@ -233,6 +259,7 @@
             this.MaximizeBox = false;
             this.Name = "OriginLabAnalyzer";
             this.Text = "OriginLabAnalyzer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OriginLabAnalyzer_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
@@ -255,7 +282,7 @@
         private System.Windows.Forms.ColumnHeader File;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button btn_analyze;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
@@ -263,6 +290,8 @@
         private System.Windows.Forms.ToolStripMenuItem importCSVToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fromFilesToolStripMenuItem;
+        private System.Windows.Forms.Button btn_origin_clear;
+        private System.Windows.Forms.Button btn_kill_origin;
     }
 }
 

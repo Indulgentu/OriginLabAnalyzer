@@ -44,6 +44,7 @@ namespace OriginLabAnalyzer
                         f1.AddToListInvoke(Directory.GetFiles(POut + ((str.Contains("li")) ? str.Split(new[] { "li" }, StringSplitOptions.None)[0] : str.Split(new[] { "mZ" }, StringSplitOptions.None)[0]) + @"\" + str.Split('.')[0], str.Split('.')[0] + "*.txt", SearchOption.TopDirectoryOnly));
                     }
                     MessageBox.Show((ErrCount > 0) ? "Parsing finished with errors. Files skipped: " + ErrCount : "Your files were parsed successfully.", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     this.Close();
                 }
             };

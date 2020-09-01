@@ -50,7 +50,7 @@ namespace OriginLabAnalyzer.Classes
             {
                 if (Options.ContainsKey(Option))
                 {
-                    return Double.Parse(Options[Option][0]);
+                    return Helper.ParseDouble(Options[Option][0]);
                 }
             }catch(Exception e)
             {

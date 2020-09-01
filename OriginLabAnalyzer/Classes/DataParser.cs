@@ -30,7 +30,7 @@ namespace OriginLabAnalyzer
                 fName = Path.GetFileName(PathIn).Split('.')[0];
                 isLi = fName.Contains("li");
 
-                PathOut = POut + ((isLi) ? fName.Split(new[] { "li" }, StringSplitOptions.None)[0] : fName.Split(new[] { "mZ" }, StringSplitOptions.None)[0]) + @"\" + fName + @"\";
+                PathOut = POut + (isLi ? fName.Split(new[] { "li" }, StringSplitOptions.None)[0] : fName.Split(new[] { "mZ" }, StringSplitOptions.None)[0]) + @"\" + fName + @"\";
                 Options = Opts;
                 ReadData();
             }
@@ -80,8 +80,8 @@ namespace OriginLabAnalyzer
             String[] Units = { GetHeaderItem("hunit")[1], "A", "V", "mm", "W", "W", "W", "J", "J", "J", "J" };
             String[] Dates = new string[Columns.Length];
             String[] Times = new string[Columns.Length];
-            HOffset = double.Parse(GetHeaderItem("hoffset")[1]);
-            HRes = double.Parse(GetHeaderItem("hresolution")[1]);
+            HOffset = Helper.ParseDouble(GetHeaderItem("hoffset")[1]);
+            HRes = Helper.ParseDouble(GetHeaderItem("hresolution")[1]);
 
             String tempPath;
             int fileNo = 0;
@@ -106,7 +106,7 @@ namespace OriginLabAnalyzer
                     FirstTen = new double[(Temp.Length / 100) * 10];
                     for (int j = 0; j < (Temp.Length / 100) * 10; j++)
                     {
-                        FirstTen[j] = Double.Parse(Temp[j].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch3")]);
+                        FirstTen[j] = Helper.ParseDouble(Temp[j].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch3")]);
                     }
 
 
@@ -118,14 +118,14 @@ namespace OriginLabAnalyzer
                     {
                         String[] CurrLine = Temp[k].Split(',');
                        // String V_Case = isLi ? Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch4")] : Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch1")];
-                        double Voltage = isLi ? Double.Parse(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch4")]) : Double.Parse(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]);
+                        double Voltage = isLi ? Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch4")]) : Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]);
                         //String Time = (isLi || Temp[k].Split(',')[0].Trim(' ') == "") ? (HOffset + (k) * HRes).ToString("0.00000000") : Double.Parse(Temp[k].Split(',')[0]).ToString("0.0000000");
-                        double Time = (isLi || CurrLine[0].Trim(' ') == "") ? (HOffset + (k) * HRes) : Double.Parse(CurrLine[0]);
+                        double Time = (isLi || CurrLine[0].Trim(' ') == "") ? (HOffset + (k) * HRes) : Helper.ParseDouble(CurrLine[0]);
                         //String Current = GetCorrectCurrent(Double.Parse(Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch3")])).ToString();
-                        double Current = GetCorrectCurrent(Double.Parse(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch3")]));
+                        double Current = GetCorrectCurrent(Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch3")]));
                         //String Voltage = Double.Parse(V_Case, System.Globalization.NumberStyles.Float).ToString();
                         //String WirePos = isLi ? Double.Parse(Temp[k].Split(',')[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]).ToString() : "0";
-                        double WirePos = isLi ? Double.Parse(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]) : 0;
+                        double WirePos = isLi ? Helper.ParseDouble(CurrLine[Array.IndexOf(GetHeaderItem("tracename"), "ch1")]) : 0;
                         //String Pin = GetInputPower(Double.Parse(Current), Double.Parse(Voltage)).ToString("0.00000000");
                         double Pin = GetInputPower(Current, Voltage);
                         //String PCol = GetPowerCol(Double.Parse(Current), Double.Parse(Voltage)).ToString();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OriginLabAnalyzer.Classes;
+using System;
 using System.IO;
 using System.Windows.Forms;
 
@@ -6,7 +7,7 @@ namespace OriginLabAnalyzer
 {
     class WorkbookReader
     {
-        public static Origin.IOApplication App;
+        public static Origin.Application App;
         private Origin.WorksheetPage Page;
         private Origin.WorksheetPages Pages;
         private Origin.Layers Layers;
@@ -96,7 +97,7 @@ namespace OriginLabAnalyzer
 
                     for (int j = 0; j < Columns; j++)
                     {
-                        Data[i - 5, j] = Double.Parse(T[j]);
+                        Data[i - 5, j] = Helper.ParseDouble(T[j]);
                     }
                 }
 
@@ -138,7 +139,7 @@ namespace OriginLabAnalyzer
             {
                 if (App.GraphPages[App.Pages["Book"].Layers[i].Name] == null)
                 {
-                    Origin.GraphPage gp = (App.GraphPages["Graph"] != null) ? App.GraphPages["Graph"] : App.GraphPages.Add(AppDomain.CurrentDomain.BaseDirectory + @"Content\aolo.otpu");
+                    Origin.GraphPage gp = (App.GraphPages["Graph"] != null) ? App.GraphPages["Graph"] : App.GraphPages.Add(AppDomain.CurrentDomain.BaseDirectory + @"Content\GraphTemplate.otpu");
                     if (gp != null)
                     {
                         Origin.Worksheet CurrentWorksheet = (Origin.Worksheet)App.Pages["Book"].Layers[i];

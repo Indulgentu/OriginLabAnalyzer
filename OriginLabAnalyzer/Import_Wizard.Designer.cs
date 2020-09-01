@@ -37,6 +37,7 @@
             this.imp_wiz_browse_out = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.options_group = new System.Windows.Forms.GroupBox();
+            this.save_all_checkbox = new System.Windows.Forms.CheckBox();
             this.i_experim_input = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.Pexp_c1neg_dt_input = new System.Windows.Forms.TextBox();
@@ -55,6 +56,7 @@
             this.imp_button = new System.Windows.Forms.Button();
             this.imp_all_btn = new System.Windows.Forms.Button();
             this.v = new System.Windows.Forms.ToolTip(this.components);
+            this.check_close_after_imp = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.options_group.SuspendLayout();
             this.SuspendLayout();
@@ -122,6 +124,8 @@
             // options_group
             // 
             this.options_group.BackColor = System.Drawing.SystemColors.Control;
+            this.options_group.Controls.Add(this.check_close_after_imp);
+            this.options_group.Controls.Add(this.save_all_checkbox);
             this.options_group.Controls.Add(this.i_experim_input);
             this.options_group.Controls.Add(this.label8);
             this.options_group.Controls.Add(this.Pexp_c1neg_dt_input);
@@ -143,6 +147,16 @@
             this.options_group.TabIndex = 7;
             this.options_group.TabStop = false;
             this.options_group.Text = "Import Options";
+            // 
+            // save_all_checkbox
+            // 
+            this.save_all_checkbox.AutoSize = true;
+            this.save_all_checkbox.Location = new System.Drawing.Point(349, 135);
+            this.save_all_checkbox.Name = "save_all_checkbox";
+            this.save_all_checkbox.Size = new System.Drawing.Size(98, 17);
+            this.save_all_checkbox.TabIndex = 19;
+            this.save_all_checkbox.Text = "Apply to all files";
+            this.save_all_checkbox.UseVisualStyleBackColor = true;
             // 
             // i_experim_input
             // 
@@ -301,6 +315,16 @@
             this.v.IsBalloon = true;
             this.v.ToolTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             // 
+            // check_close_after_imp
+            // 
+            this.check_close_after_imp.AutoSize = true;
+            this.check_close_after_imp.Location = new System.Drawing.Point(282, 156);
+            this.check_close_after_imp.Name = "check_close_after_imp";
+            this.check_close_after_imp.Size = new System.Drawing.Size(165, 17);
+            this.check_close_after_imp.TabIndex = 20;
+            this.check_close_after_imp.Text = "Close this window after import";
+            this.check_close_after_imp.UseVisualStyleBackColor = true;
+            // 
             // Import_Wizard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -354,5 +378,7 @@
         private System.Windows.Forms.Button imp_button;
         private System.Windows.Forms.Button imp_all_btn;
         private System.Windows.Forms.ToolTip v;
+        private System.Windows.Forms.CheckBox save_all_checkbox;
+        private System.Windows.Forms.CheckBox check_close_after_imp;
     }
 }

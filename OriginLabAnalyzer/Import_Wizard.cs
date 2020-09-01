@@ -76,7 +76,15 @@ namespace OriginLabAnalyzer
         {
             foreach (string str in Opts)
             {
-                CurrObj.SetOption(str, ((TextBox)Controls.Find(str + "_input", true)[0]).Text);
+                if (save_all_checkbox.Checked) {
+                    foreach (CSVObject obj in CSVOptions.Values)
+                    {
+                        obj.SetOption(str, ((TextBox)Controls.Find(str + "_input", true)[0]).Text);
+                    }
+                }else
+                {
+                    CurrObj.SetOption(str, ((TextBox)Controls.Find(str + "_input", true)[0]).Text);
+                }
             }
         }
 
@@ -87,7 +95,7 @@ namespace OriginLabAnalyzer
             {
                 if (Input.Text != "" || Input.Text != " ")
                 {
-                    Double.Parse(Input.Text);
+                    Helper.ParseDouble(Input.Text);
                 }
             }
             catch
@@ -117,6 +125,10 @@ namespace OriginLabAnalyzer
 
             });
             pf.ShowDialog();
+            if (check_close_after_imp.Checked)
+            {
+                this.Close();
+            }
         }
 
         private void imp_btn_all_Click(object sender, EventArgs e)
@@ -141,6 +153,10 @@ namespace OriginLabAnalyzer
                 });
             }
             pf.ShowDialog();
+            if (check_close_after_imp.Checked)
+            {
+                this.Close();
+            }
         }
     }
 }
