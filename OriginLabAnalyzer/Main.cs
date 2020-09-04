@@ -115,7 +115,7 @@ namespace OriginLabAnalyzer
                     try
                     {
                         c++;
-                        wbr.InitWorkBook(Path, FileName);
+                        wbr.InitWorkBook(Path, FileName, new Classes.CSVObject(FileName, Path).LoadOptionFile());
                         UpdateProgress("Processing: " + FileName + " (" + c + "/" + items.Count + ")");
                     }catch
                     {

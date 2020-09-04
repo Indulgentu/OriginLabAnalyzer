@@ -127,7 +127,7 @@ namespace OriginLabAnalyzer
                         PcolTimes[k] = Time;
                         PcolValues[k] = PCol;
                         PExpValues[k] = PExp;
-
+                        Console.WriteLine(Options.GetOption("i_experim"));
                         if (k == Temp.Length - 1)
                         {
                             double[] ExpP = GenP(PcolValues, PcolTimes, PExpValues);
@@ -142,6 +142,7 @@ namespace OriginLabAnalyzer
                     WriteData(tempPath, Temp);
                 }
             }
+            File.WriteAllLines(PathOut + fName + "_options.txt", Options.GetOptionsArray());
             Lines = null;
             GC.Collect();
         }

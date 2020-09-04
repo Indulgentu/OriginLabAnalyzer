@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,16 @@ namespace OriginLabAnalyzer.Classes
             return 0;
         }
 
+        public String[] GetOptionsArray()
+        {
+            List<String> T = new List<string>();
+            foreach(KeyValuePair<string, string[]> Option in Options)
+            {
+                T.Add(Option.Key + ":" + Option.Value[0]);
+            }
+            return T.ToArray();
+        }
+
         public String GetDescription(String Option)
         {
             if (Options.ContainsKey(Option))
@@ -66,6 +77,31 @@ namespace OriginLabAnalyzer.Classes
                 return Options[Option][1];
             }
             return null;
+        }
+
+        public CSVObject LoadOptionFile()
+        {
+            Console.WriteLine(System.IO.Path.GetDirectoryName(Path) + System.IO.Path.GetDirectoryName(Path).Substring(System.IO.Path.GetDirectoryName(Path).LastIndexOf(@"\")) + "_options.txt");
+            if (File.Exists(System.IO.Path.GetDirectoryName(Path) + System.IO.Path.GetDirectoryName(Path).Substring(System.IO.Path.GetDirectoryName(Path).LastIndexOf(@"\")) + "_options.txt"))
+            {
+                String[] Lines = File.ReadAllLines(System.IO.Path.GetDirectoryName(Path) + System.IO.Path.GetDirectoryName(Path).Substring(System.IO.Path.GetDirectoryName(Path).LastIndexOf(@"\")) + "_options.txt");
+
+                if (Lines.Length < Options.Keys.Count)
+                {
+                    //Return current object without modifications
+                    return this;
+                }
+
+                foreach (string Line in Lines)
+                {
+                    String[] LSplit = Line.Split(':');
+                    String Key = LSplit[0];
+                    String Value = LSplit[1];
+                    Console.WriteLine(Key + " " + Value);
+                    SetOption(Key, Value);
+                }
+            }
+            return this;
         }
     }
 }

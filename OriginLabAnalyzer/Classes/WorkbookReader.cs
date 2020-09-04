@@ -17,8 +17,9 @@ namespace OriginLabAnalyzer
         public String[] Long_Names;
         public String[] Units;
         public String[] Comments;
+        public CSVObject Options;
 
-        public WorkbookReader(String @path, String name)
+        public WorkbookReader(String @path, String name, CSVObject Opts)
         {
             try
             {
@@ -32,7 +33,7 @@ namespace OriginLabAnalyzer
                 Console.WriteLine(e.Message);
                 return;
             }
-            InitWorkBook(path, name);
+            InitWorkBook(path, name, Opts);
         }
         
         public WorkbookReader() {
@@ -104,12 +105,13 @@ namespace OriginLabAnalyzer
                 return Data;
         }
 
-        public void InitWorkBook(String @path, String name)
+        public void InitWorkBook(String @path, String name, CSVObject Ops)
         {
             Double[,] Data = ParseWorkbook(@path);
 
             if (Data != null)
             {
+                Options = (Ops == null) ? new CSVObject(name, path).LoadOptionFile() : Ops;
                 Pages = App.WorksheetPages;
                 Page = (Pages.Count <= 0) ? Pages[App.CreatePage((int)Origin.PAGETYPES.OPT_WORKSHEET, "Book", "W", 2)] : Pages["Book"];
                 Layers = Page.Layers;
@@ -160,6 +162,7 @@ namespace OriginLabAnalyzer
                                         break;
                                     case 2:
                                         dr = CurrentWorksheet.NewDataRange(-1, 4, CurrentWorksheet.Rows, 6);
+                                        gl.Execute("draw -n min -c #009300 -w 0.5 -d 1 -l -h [" + Options.GetOption("p_exp_min") + "];");
                                         break;
                                     default: break;
                                 }
@@ -171,6 +174,7 @@ namespace OriginLabAnalyzer
                                 // Setup the Y axis to auto adjust the scale to fit any data
                                 // points that are less than or greater than the scale's range.
                                 gl.Execute("layer.disp = layer.disp | hex(1000);");
+                                
                                 gp.Name = CurrentWorksheet.Name;
                             }
                         }
